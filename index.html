@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesin Slot Tech Stack</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Game (Titan One) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+    
+    <!-- Ikon Framework (Devicon) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/devicon.min.css">
+
+    <style>
+        .bun-original::before {
+            content: ''; 
+            display: inline-block; 
+            background-image: url('more-icon/Bun.svg'); 
+            
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            /* Atur ukuran ikon */
+            width: 1em;  
+            height: 1em; 
+            vertical-align: middle; 
+        }
+
+        .hono-original::before {
+            content: ''; 
+            display: inline-block; 
+            background-image: url('more-icon/hono-logo.svg'); 
+            
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            /* Atur ukuran ikon */
+            width: 1em;  
+            height: 1em; 
+            vertical-align: middle; 
+        }
+
+        .elysia-original::before {
+            content: ''; 
+            display: inline-block; 
+            background-image: url('more-icon/elysiajs.svg'); 
+            
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            /* Atur ukuran ikon */
+            width: 1em;  
+            height: 1em; 
+            vertical-align: middle; 
+        }
+
+        .shadcn-original::before {
+            content: ''; 
+            display: inline-block; 
+            background-image: url('more-icon/Shadcnui--Streamline-Simple-Icons.svg'); 
+            
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            /* Atur ukuran ikon */
+            width: 1em;  
+            height: 1em; 
+            vertical-align: middle; 
+        }
+
+        .drizzle-original::before {
+            content: ''; 
+            display: inline-block; 
+            background-image: url('more-icon/Drizzle--Streamline-Simple-Icons.svg'); 
+            
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            /* Atur ukuran ikon */
+            width: 1em;  
+            height: 1em; 
+            vertical-align: middle; 
+        }
+    </style>
+    
+    <style>
+        /* Menerapkan font game kustom */
+        body {
+            /* Fallback ke Inter, lalu sans-serif */
+            font-family: 'Inter', sans-serif;
+            background: #1a202c; /* bg-gray-900 */
+        }
+
+        /* Menggunakan font game untuk judul dan tombol */
+        .font-game {
+            font-family: 'Titan One', cursive;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Tinggi item reel (h-32) */
+        .reel-item {
+            height: 128px; 
+            flex-shrink: 0; /* Mencegah item menyusut */
+        }
+
+        /* Badan mesin slot (gradien metalik) */
+        .slot-machine-body {
+            background: linear-gradient(145deg, #f0c05a, #d4a03a); /* Emas/Kuning */
+            border: 4px solid #c09030;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4), inset 0 5px 15px rgba(255,255,255,0.3);
+        }
+
+        /* Layar tempat reel berputar (gelap dan cekung) */
+        .reel-screen {
+            background: #111;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            border: 4px solid #333;
+        }
+
+        /* Tombol SPIN kustom */
+        #spinButton {
+            background: linear-gradient(180deg, #84cc16, #65a30d); /* Hijau Limau */
+            color: white;
+            border: none;
+            border-bottom: 6px solid #4d7c0f; /* Efek 3D */
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+            transition: all 0.1s ease;
+        }
+
+        #spinButton:hover {
+            background: linear-gradient(180deg, #a3e635, #84cc16);
+        }
+
+        #spinButton:active {
+            background: linear-gradient(180deg, #65a30d, #84cc16);
+            border-bottom-width: 2px;
+            transform: translateY(4px);
+        }
+        
+        #spinButton:disabled {
+            background: linear-gradient(180deg, #a3a3a3, #737373);
+            border-bottom-color: #525252;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Garis indikator kemenangan (neon) */
+        .indicator-line {
+            border-color: #f87171; /* Merah Neon */
+            box-shadow: 0 0 10px #f87171, 0 0 20px #f87171;
+            opacity: 0.8;
+        }
+
+        /* Modal Content Box Animation */
+        #modalContentBox {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-900 to-gray-900 text-white min-h-screen flex items-center justify-center font-sans p-4">
+
+    <div class="w-full max-w-5xl flex flex-col items-center">
+        <h1 class="font-game text-4xl md:text-6xl text-white mb-8 text-center">
+            🎰 STACK SLOT 🎰
+        </h1>
+
+        <div class="relative w-full slot-machine-body p-4 md:p-8 rounded-3xl shadow-2xl">
+            
+            <!-- Reel -->
+            <div class="relative w-full reel-screen p-4 rounded-lg">
+                <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 w-full">
+                    
+                    <div class="reel-window flex-1 bg-black/50 rounded-lg overflow-hidden h-32 shadow-inner">
+                        <div id="reel1-inner" class="transition-transform duration-[3000ms] ease-[cubic-bezier(0.25,1,0.5,1)]">
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="reel-window flex-1 bg-black/50 rounded-lg overflow-hidden h-32 shadow-inner">
+                        <div id="reel2-inner" class="transition-transform duration-[3000ms] ease-[cubic-bezier(0.25,1,0.5,1)]">
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="reel-window flex-1 bg-black/50 rounded-lg overflow-hidden h-32 shadow-inner">
+                        <div id="reel3-inner" class="transition-transform duration-[3000ms] ease-[cubic-bezier(0.25,1,0.5,1)]">
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="reel-window flex-1 bg-black/50 rounded-lg overflow-hidden h-32 shadow-inner">
+                        <div id="reel4-inner" class="transition-transform duration-[3000ms] ease-[cubic-bezier(0.25,1,0.5,1)]">
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="indicator-line absolute top-1/2 left-4 right-4 h-32 -translate-y-1/2 border-y-4 z-10 pointer-events-none rounded-lg"></div>
+            </div>
+        </div>
+
+        <button id="spinButton" class="font-game mt-8 text-white text-4xl font-bold py-6 px-16 rounded-2xl shadow-lg transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+            SPIN!
+        </button>
+    </div>
+
+    <!-- Result Modal (Popup) -->
+    <div id="resultModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 backdrop-blur-sm">
+        <div id="modalContentBox" class="bg-gradient-to-br from-gray-700 to-gray-800 p-8 rounded-2xl shadow-2xl border-4 border-yellow-500 max-w-lg w-full transform transition-all scale-95 opacity-0">
+            <h2 class="font-game text-4xl text-yellow-400 text-center mb-6">Stack Anda!</h2>
+            
+            <!-- Konten Hasil -->
+            <div id="resultContent" class="space-y-4">
+            </div>
+            
+            <button id="closeModalButton" class="font-game mt-8 w-full bg-red-600 hover:bg-red-700 text-white text-2xl py-3 px-8 rounded-lg shadow-lg border-b-4 border-red-800 active:border-b-2 active:translate-y-px">
+                TUTUP
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tinggi item baru dalam piksel (h-32 = 8rem = 128px)
+            const ITEM_HEIGHT_PX = 128;
+
+            // ikon Devicon
+            const logoMap = {
+                "Node.js": "devicon-nodejs-plain colored",
+                "Bun": "bun-original",
+                "Express.js": "devicon-express-original colored",
+                "Next.js": "devicon-nextjs-plain",
+                "Hono.js": "hono-original",
+                "Elysia.js": "elysia-original",
+                "Nuxt": "devicon-nuxtjs-plain colored",
+                "Fastify": "devicon-fastify-plain",
+                "React.js": "devicon-react-original colored",
+                "Svelte": "devicon-svelte-plain colored",
+                "Vue.js": "devicon-vuejs-plain colored",
+                "Shadcn": "shadcn-original",
+                "Supabase": "devicon-supabase-plain colored",
+                "MongoDB": "devicon-mongodb-plain colored",
+                "Firebase": "devicon-firebase-plain colored",
+                "Drizzle": "drizzle-original",
+                "Postgresql": "devicon-postgresql-plain colored",
+                "Prisma": "devicon-prisma-original colored",
+            };
+
+            // Data untuk setiap reel
+            const reelData = {
+                reel1: {
+                    el: document.getElementById('reel1-inner'),
+                    items: ["Node.js", "Bun"],
+                    label: "Runtime"
+                },
+                reel2: {
+                    el: document.getElementById('reel2-inner'),
+                    items: ["Express.js", "Next.js", "Hono.js", "Elysia.js", "Nuxt", "Fastify"],
+                    label: "Backend"
+                },
+                reel3: {
+                    el: document.getElementById('reel3-inner'),
+                    items: ["React.js", "Svelte", "Vue.js", "Shadcn"],
+                    label: "Frontend"
+                },
+                reel4: {
+                    el: document.getElementById('reel4-inner'),
+                    items: ["Supabase", "MongoDB", "Firebase", "Drizzle", "Postgresql", "Prisma"],
+                    label: "Database"
+                }
+            };
+
+            const spinButton = document.getElementById('spinButton');
+            // Elemen Modal Baru
+            const resultModal = document.getElementById('resultModal');
+            const modalContentBox = document.getElementById('modalContentBox');
+            const resultContent = document.getElementById('resultContent');
+            const closeModalButton = document.getElementById('closeModalButton');
+
+            function initReel(reel) {
+                reel.el.innerHTML = ''; // Kosongkan reel
+                const fragment = document.createDocumentFragment();
+                
+                let spinItems = [];
+                for (let i = 0; i < 5; i++) {
+                    spinItems.push(...reel.items.sort(() => 0.5 - Math.random()));
+                }
+                
+                spinItems.push(...reel.items);
+                
+                reel.el.dataset.totalItems = spinItems.length;
+                reel.el.dataset.baseItemCount = reel.items.length;
+
+                spinItems.forEach(itemText => {
+                    const div = document.createElement('div');
+                    div.className = 'reel-item flex items-center justify-center text-white overflow-hidden';
+                    
+                    const iconClass = logoMap[itemText];
+
+                    if (iconClass) {
+                        div.innerHTML = `<i class="${iconClass} text-6xl md:text-7xl"></i>`;
+                    } else {
+                        div.innerHTML = `<span class="text-xl md:text-2xl font-bold p-2 text-center" style="font-family: 'Inter', sans-serif;">${itemText}</span>`;
+                    }
+                    fragment.appendChild(div);
+                });
+                
+                reel.el.appendChild(fragment);
+            }
+
+            Object.values(reelData).forEach(initReel);
+
+            // Fungsi untuk memutar
+            function spin() {
+                spinButton.disabled = true;
+
+                let maxDuration = 0;
+                const results = [];
+                const resultLabels = [];
+
+                Object.values(reelData).forEach((reel, index) => {
+                    const { el, items } = reel;
+                    const totalItems = parseInt(el.dataset.totalItems);
+                    const baseItemCount = parseInt(el.dataset.baseItemCount);
+
+                    el.style.transition = 'none';
+                    el.style.transform = 'translateY(0)';
+                    
+                    void el.offsetWidth;
+
+                    const targetIndex = Math.floor(Math.random() * baseItemCount);
+                    const winner = items[targetIndex];
+                    
+                    results.push(winner);
+                    resultLabels.push(reel.label);
+                    
+                    const targetPixelOffset = (totalItems - baseItemCount + targetIndex) * ITEM_HEIGHT_PX;
+                    
+                    const spinDuration = 3000 + (index * 200) + Math.random() * 500;
+                    if (spinDuration > maxDuration) {
+                        maxDuration = spinDuration;
+                    }
+
+                    el.style.transition = `transform ${spinDuration}ms cubic-bezier(0.25, 1, 0.5, 1)`;
+                    el.style.transform = `translateY(-${targetPixelOffset}px)`;
+                });
+
+                setTimeout(() => {
+                    spinButton.disabled = false;
+                    showResults(results, resultLabels); // Tampilkan modal dengan hasil
+                }, maxDuration);
+            }
+
+            function showResults(results, labels) {
+                let html = '';
+                
+                results.forEach((item, index) => {
+                    const iconClass = logoMap[item];
+                    const label = labels[index];
+                    let iconHtml = '';
+
+                    if (iconClass) {
+                        iconHtml = `<i class="${iconClass} text-5xl"></i>`;
+                    } else {
+                        iconHtml = `<span class="text-xl font-bold p-2 text-center" style="font-family: 'Inter', sans-serif;">${item}</span>`;
+                    }
+
+                    html += `
+                        <div class="flex items-center bg-gray-900 p-4 rounded-lg shadow-inner">
+                            <div class="w-16 flex-shrink-0 flex items-center justify-center text-white">${iconHtml}</div>
+                            <div class="ml-4">
+                                <span class="block text-sm text-gray-400 font-game tracking-widest">${label.toUpperCase()}</span>
+                                <span class="block text-2xl font-bold text-white">${item}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                resultContent.innerHTML = html;
+
+                resultModal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContentBox.classList.remove('scale-95', 'opacity-0');
+                    modalContentBox.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+
+            function hideResults() {
+                modalContentBox.classList.remove('scale-100', 'opacity-100');
+                modalContentBox.classList.add('scale-95', 'opacity-0');
+                
+                setTimeout(() => {
+                    resultModal.classList.add('hidden');
+                }, 200);
+            }
+
+            // event listener ke tombol
+            spinButton.addEventListener('click', spin);
+            
+            // event listener untuk menutup modal
+            closeModalButton.addEventListener('click', hideResults);
+            resultModal.addEventListener('click', (e) => {
+                // Tutup jika mengklik latar belakang (backdrop)
+                if (e.target === resultModal) {
+                    hideResults();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
