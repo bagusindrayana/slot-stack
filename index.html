@@ -86,6 +86,20 @@
             height: 1em; 
             vertical-align: middle; 
         }
+
+        .deno-original::before {
+            content: ''; 
+            display: inline-block; 
+            background-image: url('more-icon/Deno--Streamline-Simple-Icons.svg'); 
+            
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            /* Atur ukuran ikon */
+            width: 1em;  
+            height: 1em; 
+            vertical-align: middle; 
+        }
     </style>
     
     <style>
@@ -235,12 +249,14 @@
             const logoMap = {
                 "Node.js": "devicon-nodejs-plain colored",
                 "Bun": "bun-original",
+                "Deno": "deno-original",
                 "Express.js": "devicon-express-original colored",
                 "Next.js": "devicon-nextjs-plain",
                 "Hono.js": "hono-original",
                 "Elysia.js": "elysia-original",
                 "Nuxt": "devicon-nuxtjs-plain colored",
                 "Fastify": "devicon-fastify-plain",
+                "NestJS": "devicon-nestjs-plain colored",
                 "React.js": "devicon-react-original colored",
                 "Svelte": "devicon-svelte-plain colored",
                 "Vue.js": "devicon-vuejs-plain colored",
@@ -251,18 +267,19 @@
                 "Drizzle": "drizzle-original",
                 "Postgresql": "devicon-postgresql-plain colored",
                 "Prisma": "devicon-prisma-original colored",
+                "MySQL": "devicon-mysql-plain colored",
             };
 
             // Data untuk setiap reel
             const reelData = {
                 reel1: {
                     el: document.getElementById('reel1-inner'),
-                    items: ["Node.js", "Bun"],
+                    items: ["Node.js", "Bun","Deno"],
                     label: "Runtime"
                 },
                 reel2: {
                     el: document.getElementById('reel2-inner'),
-                    items: ["Express.js", "Next.js", "Hono.js", "Elysia.js", "Nuxt", "Fastify"],
+                    items: ["Express.js", "Next.js", "Hono.js", "Elysia.js", "Nuxt", "Fastify","NestJS"],
                     label: "Backend"
                 },
                 reel3: {
@@ -272,7 +289,7 @@
                 },
                 reel4: {
                     el: document.getElementById('reel4-inner'),
-                    items: ["Supabase", "MongoDB", "Firebase", "Drizzle", "Postgresql", "Prisma"],
+                    items: ["Supabase", "MongoDB", "Firebase", "Drizzle", "Postgresql", "Prisma","MySQL"],
                     label: "Database"
                 }
             };
